@@ -70,13 +70,15 @@ Minimal, functional codebase (under 200 lines of application code total):
 ├── app/
 │   ├── __init__.py          # Package initialization
 │   ├── main.py              # FastAPI app, lifespan setup, and /health & /query endpoints
+│   ├── frontend.py          # Minimal Streamlit UI: natural language query input & result display
 │   ├── models.py            # Pydantic schemas: QueryRequest & QueryResponse
 │   ├── data_loader.py       # DuckDB in-memory table loader (read_csv_auto) & query executor
 │   ├── schema_context.py    # Schema introspection & system prompt assembler
 │   ├── llm_client.py        # Gemini client: build_prompt & call_gemini
 │   └── query_engine.py      # Core orchestrator: execution, 1-shot retry, confidence calibration
 ├── tests/
-│   └── test_engine.py       # Pytest suite verifying table loading, joins, window functions, and retries
+│   ├── test_engine.py       # Pytest suite verifying table loading, joins, window functions, and retries
+│   └── test_frontend.py     # Pytest suite verifying Streamlit frontend interactions and error handling
 ├── dataset/                 # Operational data files
 │   ├── sales_data.csv       # Order-level sales transactions
 │   ├── targets.csv          # Regional monthly revenue targets
@@ -106,11 +108,19 @@ pip install -r requirements.txt
 Add your Google Gemini API key to `.env`:
 ```bash
 echo "GEMINI_API_KEY=your_gemini_api_key_here" > .env
+echo "API_URL=http://localhost:8000" >> .env
 ```
 
-### 4.3 Run the Server
+### 4.3 Running the Services
+
+Run the backend and frontend concurrently in two separate terminal windows:
+
 ```bash
-python3 -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+# Terminal 1: Backend API (FastAPI)
+python3 -m uvicorn app.main:app --port 8000 --reload
+
+# Terminal 2: Frontend Web UI (Streamlit)
+streamlit run app/frontend.py
 ```
 
 Health check:
