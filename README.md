@@ -20,7 +20,7 @@ Here is how the engine works:
 ## 2. Architecture & Working Flow
 
 ### Tech Architecture
-![Tech Architecture](assets/tech_architecture.svg)
+<img src="https://cdn.jsdelivr.net/gh/Tejas-34/Intelligent-Analytics-Query-Engine@main/assets/tech_architecture.svg" alt="Tech Architecture" width="100%">
 
 - **Streamlit**: Simple web interface for asking questions and viewing results.
 - **FastAPI backend**: Handles API requests, schema compilation, and query execution.
@@ -28,7 +28,7 @@ Here is how the engine works:
 - **Google Gemini**: Translates plain-English questions into valid SQL.
 
 ### Core Working Flow
-![Core Working Flow](assets/core_working_flow.svg)
+<img src="https://cdn.jsdelivr.net/gh/Tejas-34/Intelligent-Analytics-Query-Engine@main/assets/core_working_flow.svg" alt="Core Working Flow" width="100%">
 
 1. The user asks a question in plain English.
 2. Gemini translates it into SQL with an explanation.
@@ -42,15 +42,15 @@ Here is how the engine works:
 
 ### Natural Language Analytics
 Ask questions in plain English to calculate metrics like revenue across categories:
-![Total Revenue Query](assets/Screenshots/s1.png)
+<img src="https://cdn.jsdelivr.net/gh/Tejas-34/Intelligent-Analytics-Query-Engine@main/assets/Screenshots/s1.png" alt="Total Revenue Query" width="100%">
 
 ### Read-Only Safety Guard in Action
 Any attempt to delete or alter data is caught and blocked before touching the database:
-![Blocked Query](assets/Screenshots/s2.png)
+<img src="https://cdn.jsdelivr.net/gh/Tejas-34/Intelligent-Analytics-Query-Engine@main/assets/Screenshots/s2.png" alt="Blocked Query" width="100%">
 
 ### Complex Multi-Table Analysis
 Compare actual sales performance against monthly targets across regions:
-![Target Comparison Query](assets/Screenshots/s3.png)
+<img src="https://cdn.jsdelivr.net/gh/Tejas-34/Intelligent-Analytics-Query-Engine@main/assets/Screenshots/s3.png" alt="Target Comparison Query" width="100%">
 
 ---
 
