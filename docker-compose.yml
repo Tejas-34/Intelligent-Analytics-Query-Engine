@@ -17,7 +17,7 @@ services:
     container_name: analytics_frontend
     command: ["streamlit", "run", "app/frontend.py", "--server.port", "8501", "--server.address", "0.0.0.0"]
     ports:
-      - "8501:8501"
+      - "80:8501"
     environment:
       - API_URL=http://backend:8000
     depends_on:
