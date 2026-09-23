@@ -172,3 +172,24 @@ Runs unit tests for table loading, complex DuckDB SQL (multi-table target joins,
 python3 run_validation.py
 ```
 Executes all 8 canonical validation queries from `dataset/nl_queries.json` and outputs formatted results.
+
+---
+
+## 7. Docker & AWS Deployment
+
+### Build & Run Locally with Docker
+```bash
+# Build the container
+docker build -t analytics-engine:latest .
+
+# Run container (exposes Streamlit on port 8501)
+docker run -p 8501:8501 -e GEMINI_API_KEY="your_api_key_here" analytics-engine:latest
+```
+
+Or using Docker Compose:
+```bash
+docker compose up --build
+```
+
+### Deploy to AWS
+For complete, step-by-step instructions on deploying to **AWS App Runner** (recommended), **AWS ECS Fargate**, or **AWS EC2**, refer to the [AWS Deployment Guide](AWS_DEPLOYMENT.md).

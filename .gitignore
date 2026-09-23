@@ -34,3 +34,4 @@ tests/
 run_validation.py
 .specify/
 .agents/
+AWS_DEPLOYMENT.md

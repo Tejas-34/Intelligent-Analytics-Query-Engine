@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # -------------------------------------------------------------
+  # Unified Service: Runs both FastAPI and Streamlit in one container
+  # Ideal for AWS App Runner, single-container ECS, or local testing.
+  # -------------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: analytics_app
+    ports:
+      - "8501:8501" # Streamlit UI
+      - "8000:8000" # FastAPI Docs / API
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.0-flash}
+      - API_URL=http://127.0.0.1:8000
+    restart: unless-stopped
+
+  # -------------------------------------------------------------
+  # Decoupled Mode: Run Backend and Frontend in separate containers
+  # Usage: docker compose --profile decoupled up
+  # -------------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: analytics_backend
+    command: ["python3", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.0-flash}
+    restart: unless-stopped
+    profiles: ["decoupled"]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: analytics_frontend
+    command: ["streamlit", "run", "app/frontend.py", "--server.port", "8501", "--server.address", "0.0.0.0"]
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+    profiles: ["decoupled"]
