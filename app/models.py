@@ -10,5 +10,5 @@ class QueryResponse(BaseModel):
     query: str
     generated_logic: str
     result: Any
-    confidence_score: float = Field(..., ge=0.0, le=1.0)
+    confidence_score: int = Field(..., ge=0, le=1)
     explanation: str
